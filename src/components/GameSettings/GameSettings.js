@@ -4,6 +4,7 @@ import Box from '@material-ui/core/Box';
 import { styled as materialStyled } from '@material-ui/core/styles';
 import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
+import Fade from '@material-ui/core/Fade';
 import TimePicker from './TimePicker';
 import SoundPicker from './SoundPicker';
 import Heading from '../Heading';
@@ -32,24 +33,26 @@ const SettingsSection = styled.section`
 const GameSettings = () => {
   const { setIsPlaying } = useGlobalContext();
   return (
-    <SettingsSection>
-      <Heading>HOW THIRSTY ARE YOU?</Heading>
-      <TimePicker />
+    <Fade in={true} timeout={1500}>
+      <SettingsSection>
+        <Heading>HOW THIRSTY ARE YOU?</Heading>
+        <TimePicker />
 
-      <Heading>choose drink sound</Heading>
-      <SoundPicker />
+        <Heading>choose drink sound</Heading>
+        <SoundPicker />
 
-      <Box display="flex" justifyContent="center" mt={2}>
-        <StartButton
-          variant="contained"
-          color="primary"
-          size="large"
-          onClick={() => setIsPlaying(true)}
-        >
-          Start
-        </StartButton>
-      </Box>
-    </SettingsSection>
+        <Box display="flex" justifyContent="center" mt={2}>
+          <StartButton
+            variant="contained"
+            color="primary"
+            size="large"
+            onClick={() => setIsPlaying(true)}
+          >
+            Start
+          </StartButton>
+        </Box>
+      </SettingsSection>
+    </Fade>
   );
 };
 

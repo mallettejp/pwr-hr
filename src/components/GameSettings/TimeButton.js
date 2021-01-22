@@ -1,5 +1,5 @@
 import React from 'react';
-import Box from '@material-ui/core/Box';
+import MuiBox from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { styled, useTheme } from '@material-ui/core/styles';
@@ -33,6 +33,15 @@ const BtnDesc = styled(Typography)({
   },
 });
 
+const Box = styled(MuiBox)(({ theme }) => ({
+  paddingTop: theme.spacing(2),
+  paddingBottom: theme.spacing(2),
+  '@media screen and (max-width: 450px)': {
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
+  },
+}));
+
 const GameTimeBtn = ({ time, desc, emoji, onClick }) => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down('xs'));
@@ -47,7 +56,7 @@ const GameTimeBtn = ({ time, desc, emoji, onClick }) => {
       onClick={onClick}
       fullWidth="true"
     >
-      <Box py={matches ? 1 : 2}>
+      <Box py={2}>
         <BtnTime variant={'h4'}>{time}</BtnTime>
         <BtnTime variant="h4">MIN</BtnTime>
         <BtnDesc variant="caption">{desc}</BtnDesc>
