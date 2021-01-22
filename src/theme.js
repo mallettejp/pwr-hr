@@ -3,7 +3,7 @@ import { createMuiTheme } from '@material-ui/core/styles';
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: 'hsl(200, 33%, 62%)',
+      main: 'hsl(199, 30%, 45%)',
     },
     secondary: {
       main: 'hsl(200, 60%, 9%)',
@@ -24,7 +24,7 @@ const theme = createMuiTheme({
   spacing: 8,
   breakpoints: {
     values: {
-      xs: 450,
+      xs: 0,
       sm: 600,
       md: 960,
       lg: 1280,

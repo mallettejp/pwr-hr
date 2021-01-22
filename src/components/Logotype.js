@@ -14,7 +14,7 @@ const useStyles = makeStyles({
 const Logotype = () => {
   const classes = useStyles();
   return (
-    <Box py={2}>
+    <Box pt={1} pb={1}>
       <Typography variant="h5" component="h1" className={classes.root}>
         PwrHr.
       </Typography>

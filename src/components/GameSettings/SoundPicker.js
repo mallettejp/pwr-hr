@@ -3,10 +3,7 @@ import { styled } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import { useGlobalContext } from '../../context/context';
-import moduleName from './SoundBtn';
-import styledComp from 'styled-components';
-
-const sounds = ['Boxing Bell', 'Ding', 'Drink!', 'No Sound'];
+import sounds from '../../sounds';
 
 const StyledGroup = styled(ButtonGroup)({
   '&,&:active,&:hover,&:focus': {
@@ -19,29 +16,34 @@ const StyledGroup = styled(ButtonGroup)({
     fontWeight: '500',
     '&,&:active,&:hover,&:focus': {
       border: '3px solid var(--color-primary-dark)',
+      borderTopWidth: '0',
     },
   },
 });
 
-const SoundPicker = ({ children }) => {
+const StyledButton = styled(Button)({
+  border: '3px solid var(--color-primary-dark)',
+});
+
+const SoundPicker = () => {
   const { drinkSound, setDrinkSound } = useGlobalContext();
-  let selected = false;
   return (
     <StyledGroup
       orientation="vertical"
       color="secondary"
       aria-label="vertical outlined primary button group"
       fullWidth
+      disableElevation
     >
       {sounds.map((sound) => {
         return (
-          <Button
+          <StyledButton
             variant={drinkSound === sound ? 'contained' : 'outlined'}
             color="secondary"
             onClick={() => setDrinkSound(sound)}
           >
             {sound}
-          </Button>
+          </StyledButton>
         );
       })}
     </StyledGroup>

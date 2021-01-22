@@ -6,22 +6,25 @@ import Container from '@material-ui/core/Container';
 import theme from './theme';
 import Layout from './components/Layout';
 import Logotype from './components/Logotype';
-import GameSettings from './containers/GameSettings/';
-import GameTimer from './containers/GameTimer';
+import GameSettings from './components/GameSettings';
+import GameTimer from './components/GameTimer';
 import GameRules from './components/GameRules';
 import Footer from './components/Footer';
+import { useGlobalContext } from './context/context';
 
 function App() {
+  const { isPlaying } = useGlobalContext();
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Layout>
         <Logotype />
         <Container maxWidth="sm">
-          <GameSettings />
-          <GameTimer />
-          <GameRules />
+          {isPlaying ? <GameTimer /> : <GameSettings />}
         </Container>
+
+        <GameRules />
+
         <Footer />
       </Layout>
     </ThemeProvider>
