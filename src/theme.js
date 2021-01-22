@@ -3,9 +3,13 @@ import { createMuiTheme } from '@material-ui/core/styles';
 const theme = createMuiTheme({
   palette: {
     primary: {
-      light: 'hsl(200, 33%, 62%)',
-      main: 'hsl(200, 47%, 18%)',
-      dark: 'hsl(200, 60%, 9%)',
+      main: 'hsl(200, 33%, 62%)',
+    },
+    secondary: {
+      main: 'hsl(200, 60%, 9%)',
+    },
+    background: {
+      default: 'hsl(200, 47%, 18%)',
     },
   },
   typography: {
@@ -17,8 +21,21 @@ const theme = createMuiTheme({
       fontFamily: ['Rubik Mono One', 'sans-serif'].join(','),
     },
   },
+  spacing: 8,
+  breakpoints: {
+    values: {
+      xs: 450,
+      sm: 600,
+      md: 960,
+      lg: 1280,
+      xl: 1920,
+    },
+  },
+  overrides: {
+    MuiButton: {
+      borderWidth: '3px',
+    },
+  },
 });
-
-theme.palette.background = { default: theme.palette.primary.main };
 
 export default theme;

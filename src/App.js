@@ -1,22 +1,29 @@
 import React from 'react';
 import './App.css';
-import Typography from '@material-ui/core/Typography';
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import Container from '@material-ui/core/Container';
 import theme from './theme';
+import Layout from './components/Layout';
+import Logotype from './components/Logotype';
+import GameSettings from './containers/GameSettings/';
+import GameTimer from './containers/GameTimer';
+import GameRules from './components/GameRules';
+import Footer from './components/Footer';
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      {/* <Layout>
+      <Layout>
         <Logotype />
-      <GameSettings />
-      <GameTimer />
-      <GameRules />
-      <Footer />
-    </Layout> */}
-      <Typography variant="h2">POOPO!!</Typography>
+        <Container maxWidth="sm">
+          <GameSettings />
+          <GameTimer />
+          <GameRules />
+        </Container>
+        <Footer />
+      </Layout>
     </ThemeProvider>
   );
 }
