@@ -3,7 +3,6 @@ import './App.css';
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
-import Fade from '@material-ui/core/Fade';
 import theme from './theme';
 import Layout from './components/Layout';
 import Logotype from './components/Logotype';

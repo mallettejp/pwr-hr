@@ -2,10 +2,11 @@ import React from 'react';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Fade from '@material-ui/core/Fade';
-import { makeStyles, useTheme, materialStyled } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Container from '@material-ui/core/Container';
 import styled from 'styled-components';
+import { bpMaxHeight } from '../utils/breakpoints';
 
 const useStyles = makeStyles({
   root: {
@@ -17,30 +18,38 @@ const useStyles = makeStyles({
 
 const StyledContainer = styled(Container)`
   margin-top: auto;
-  margin-bottom: 6rem;
+  margin-bottom: 20rem;
 
-  @media screen and (max-height: 800px) {
+  ${bpMaxHeight(1200)} {
+    margin-bottom: 12rem;
+  }
+
+  ${bpMaxHeight(850)} {
+    margin-bottom: 7rem;
+  }
+
+  ${bpMaxHeight(800)} {
+    margin-bottom: 6rem;
+  }
+
+  ${bpMaxHeight(750)} {
     margin-bottom: 5rem;
   }
 
-  @media screen and (max-height: 750px) {
+  ${bpMaxHeight(720)} {
     margin-bottom: 4rem;
   }
 
-  @media screen and (max-height: 720px) {
+  ${bpMaxHeight(700)} {
+    margin-bottom: 2.5.rem;
+  }
+
+  ${bpMaxHeight(650)} {
     margin-bottom: 3rem;
   }
 
-  @media screen and (max-height: 700px) {
+  ${bpMaxHeight(575)} {
     margin-bottom: 2.5rem;
-  }
-
-  @media screen and (max-height: 650px) {
-    margin-bottom: 2rem;
-  }
-
-  @media screen and (max-height: 575px) {
-    margin-bottom: 1.5rem;
   }
 `;
 
