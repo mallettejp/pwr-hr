@@ -31,6 +31,9 @@ const BtnDesc = styled(Typography)({
   '@media screen and (max-width: 340px)': {
     display: 'none',
   },
+  '@media screen and (max-height: 560px)': {
+    display: 'none',
+  },
 });
 
 const Box = styled(MuiBox)(({ theme }) => ({

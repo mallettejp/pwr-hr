@@ -16,7 +16,7 @@ const StartButton = materialStyled(Button)({
 
 // Styled with styled-components
 const SettingsSection = styled.section`
-  margin-top: 2em;
+  margin-top: 3em;
 
   & .MuiButtonGroup-groupedOutlinedVertical:not(:last-child) {
     border-bottom: 0;
@@ -31,9 +31,9 @@ const SettingsSection = styled.section`
 `;
 
 const GameSettings = () => {
-  const { setIsPlaying, setIsPaused } = useGlobalContext();
+  const { isPlaying, setIsPlaying, setIsPaused } = useGlobalContext();
   return (
-    <Fade in={true} timeout={1500}>
+    <Fade in={!isPlaying} timeout={1500}>
       <SettingsSection>
         <Heading>HOW THIRSTY ARE YOU?</Heading>
         <TimePicker />

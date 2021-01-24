@@ -3,6 +3,8 @@
   --color-primary-light: hsl(200, 33%, 62%);
   --color-primary-dark: hsl(200, 60%, 9%);
   --color-text-light: hsl(200, 10%, 51%);
+
+  --viewport-height: 100%;
 }
 
 body {
@@ -20,6 +22,7 @@ code {
     monospace;
 }
 
-.MuiButton-outlined {
-  border-width: 10px;
+a {
+  color: var(--color-primary-light);
+  text-decoration: none;
 }

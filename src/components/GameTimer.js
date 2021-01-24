@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useGlobalContext } from '../context/context';
 import MuiBox from '@material-ui/core/Box';
 import Fade from '@material-ui/core/Fade';
@@ -6,7 +6,12 @@ import Heading from './Heading';
 import styled from 'styled-components';
 import MuiButton from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import { breakSm, breakLg } from '../utils/breakpoints';
+import {
+  breakSm,
+  breakLg,
+  bpMaxWidth,
+  bpMaxHeight,
+} from '../utils/breakpoints';
 
 console.log(breakSm);
 
@@ -32,7 +37,7 @@ const ButtonGrid = styled(Grid)`
   margin-top: 4em;
 
   ${breakSm} {
-    margin-top: 4em;
+    margin-top: 3em;
   }
 `;
 
@@ -49,7 +54,10 @@ const Button = styled(MuiButton)`
 const Box = styled(MuiBox)`
   margin-top: 8em;
 
-  @media screen and (max-width: 360px) {
+  ${bpMaxWidth(360)} {
+    margin-top: 4em;
+  }
+  ${bpMaxHeight(700)} {
     margin-top: 4em;
   }
 `;
@@ -65,7 +73,7 @@ const DrinkText = styled.span`
 `;
 
 const GameTimer = () => {
-  // Global context state
+  /* Global context state */
   const {
     isPlaying,
     setIsPlaying,
@@ -75,12 +83,21 @@ const GameTimer = () => {
     drinkSound,
   } = useGlobalContext();
 
-  // Local component state
+  /* Local component state */
   const [secondCount, setSecondCount] = useState(3);
   const [drinkCount, setDrinkCount] = useState(0);
 
-  // Counting logic
-  React.useEffect(() => {
+  /* Audio logic */
+  const audio = useRef(null);
+  let soundSrc;
+  if (drinkSound === 'Boxing Bell') soundSrc = '../audio/boxingbell.mp3';
+  if (drinkSound === 'Ding') soundSrc = '../audio/ding.mp3';
+  if (drinkSound === 'No Sound') soundSrc = null;
+  // Playing audio needs to be outside of useEffect to play at the right time
+  if (secondCount === 0) audio.current.play();
+
+  /* Counting logic */
+  useEffect(() => {
     while (!isPaused) {
       const timeout = setTimeout(() => {
         let newSecondCount, newDrinkCount;
@@ -100,7 +117,7 @@ const GameTimer = () => {
   }, [secondCount, isPlaying, isPaused, drinkCount]);
 
   return (
-    <Fade in={true} timeout={1500}>
+    <Fade in={isPlaying} timeout={1500}>
       <Box display="flex" flexDirection="column" alignItems="center" mt={0}>
         <Timer>{secondCount}</Timer>
         <Heading variant="h5" component="p">
@@ -136,6 +153,9 @@ const GameTimer = () => {
           </Grid>
         </ButtonGrid>
         {secondCount < 1 && <DrinkText>DRINK!</DrinkText>}
+        <audio ref={audio}>
+          <source src={soundSrc} />
+        </audio>
       </Box>
     </Fade>
   );

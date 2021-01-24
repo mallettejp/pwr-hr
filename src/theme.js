@@ -10,6 +10,7 @@ const theme = createMuiTheme({
     },
     background: {
       default: 'hsl(200, 47%, 18%)',
+      paper: 'hsl(200, 47%, 18%)',
     },
   },
   typography: {

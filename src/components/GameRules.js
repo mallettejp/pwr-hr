@@ -49,7 +49,7 @@ const StyledContainer = styled(Container)`
   }
 
   ${bpMaxHeight(575)} {
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
   }
 `;
 

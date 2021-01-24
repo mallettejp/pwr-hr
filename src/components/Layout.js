@@ -1,22 +1,37 @@
 import React from 'react';
 import Container from '@material-ui/core/Container';
-import { makeStyles } from '@material-ui/core/styles';
+import styled from 'styled-components';
 
-const useStyles = makeStyles({
-  root: {
-    display: 'flex',
-    flexDirection: 'column',
-    height: '100vh',
-  },
-});
+const StyledContainer = styled(Container)`
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  @supports (height: var(--)) {
+    height: var(--viewport-height);
+  }
+`;
 
 const Layout = ({ children }) => {
-  const classes = useStyles();
-  return (
-    <Container maxWidth="lg" className={classes.root}>
-      {children}
-    </Container>
-  );
+  /* Fix the 100vh "bug" in iOS Safari */
+  const updateViewportHeight = () => {
+    // Set --viewport-height variable to current window height
+    document.documentElement.style.setProperty(
+      '--viewport-height',
+      `${window.innerHeight}px`
+    );
+  };
+
+  React.useEffect(() => {
+    window.addEventListener('resize', updateViewportHeight);
+    // Must run once initially
+    updateViewportHeight();
+    return () => {
+      window.removeEventListener('resize', updateViewportHeight);
+    };
+  }, []);
+
+  return <StyledContainer maxWidth="lg">{children}</StyledContainer>;
 };
 
 export default Layout;

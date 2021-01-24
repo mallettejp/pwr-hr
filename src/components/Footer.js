@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
   root: {
-    // marginTop: 'auto',
+    marginTop: 'auto',
     display: 'flex',
     justifyContent: 'space-between',
   },
@@ -17,10 +17,23 @@ const Footer = () => {
   return (
     <Box mb={1} className={classes.root}>
       <Typography variant="caption" className={classes.label}>
-        Made by mallettejp
+        Made by{' '}
+        <a
+          href="https://github.com/mallettejp"
+          target="_blank"
+          rel="noreferrer"
+        >
+          mallettejp
+        </a>
       </Typography>
       <Typography variant="caption" className={classes.label}>
-        Buy me a beer?
+        <a
+          href="https://ko-fi.com/mallettedesign"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Buy me a beer?
+        </a>
       </Typography>
     </Box>
   );
