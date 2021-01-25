@@ -6,9 +6,9 @@ import Container from '@material-ui/core/Container';
 
 import theme from './theme';
 import Layout from './components/Layout';
-import Logotype from './components/Logotype';
+import TopBar from './components/TopBar';
 import GameSettings from './components/GameSettings';
-import GameTimer from './components/GameTimer';
+import GameTimer from './components/GameTimer/GameTimer';
 import Footer from './components/Footer';
 import { useGlobalContext } from './context/context';
 import GameInfo from './components/GameInfo';
@@ -25,7 +25,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Layout>
-        <Logotype openModal={openModal} />
+        <TopBar openModal={openModal} />
         <GameInfo isModalOpen={isModalOpen} closeModal={closeModal} />
         <Container maxWidth="sm">
           {isPlaying ? <GameTimer /> : <GameSettings />}

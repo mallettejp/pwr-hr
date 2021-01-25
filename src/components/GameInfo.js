@@ -36,24 +36,31 @@ const GameInfo = ({ isModalOpen, closeModal }) => {
         <Text>
           <Typography variant="body2">
             Due to the way iOS handles web applications, this game doesn't work
-            properly on iPhone unless the web browser is open.
+            properly on iPhone unless the web browser is in the foreground.
           </Typography>
         </Text>
         <Text>
           <Typography variant="body2">
             If you enjoyed this project and are feeling generous, you can donate
             a couple bucks to my{' '}
-            <a href="https://ko-fi.com/mallettedesign">beer fund</a>.
+            <a
+              href="https://ko-fi.com/mallettedesign"
+              target="_blank"
+              rel="noreferrer"
+            >
+              beer fund
+            </a>
+            .
           </Typography>
         </Text>
+
         <Text>
           <Typography variant="body2">
-            Timer and drink counter numbers are set with{' '}
-            <a href="https://fonts.google.com/specimen/Rubik+Mono+One">
-              Rubik Mono One
+            Sound effects obtained from{' '}
+            <a href="https://www.zapsplat.com" target="_blank" rel="noreferrer">
+              zapsplat.com
             </a>
-            . All other type is set in{' '}
-            <a href="https://fonts.google.com/specimen/Rubik">Rubik</a>.
+            .
           </Typography>
         </Text>
       </Content>

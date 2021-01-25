@@ -1,17 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useGlobalContext } from '../context/context';
-import MuiBox from '@material-ui/core/Box';
-import Fade from '@material-ui/core/Fade';
-import Heading from './Heading';
+import { useGlobalContext } from '../../context/context';
+import Heading from '../Heading';
+import QuitModal from './QuitModal';
+import ControlButtons from './ControlButtons';
 import styled from 'styled-components';
-import MuiButton from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
+import { Box as MuiBox, Fade } from '@material-ui/core';
+
 import {
   breakSm,
   breakLg,
   bpMaxWidth,
   bpMaxHeight,
-} from '../utils/breakpoints';
+} from '../../utils/breakpoints';
 
 console.log(breakSm);
 
@@ -30,24 +30,6 @@ const Timer = styled.h2`
   }
   ${breakSm} {
     font-size: 150px;
-  }
-`;
-
-const ButtonGrid = styled(Grid)`
-  margin-top: 4em;
-
-  ${breakSm} {
-    margin-top: 3em;
-  }
-`;
-
-const Button = styled(MuiButton)`
-  width: 120px;
-  &,
-  &:active,
-  &:hover,
-  &:focus {
-    border-width: 3px;
   }
 `;
 
@@ -76,35 +58,42 @@ const GameTimer = () => {
   /* Global context state */
   const {
     isPlaying,
-    setIsPlaying,
     isPaused,
-    setIsPaused,
     gameTime,
     drinkSound,
+    gameOver,
+    setGameOver,
   } = useGlobalContext();
 
   /* Local component state */
-  const [secondCount, setSecondCount] = useState(3);
+  const [secondCount, setSecondCount] = useState(60);
   const [drinkCount, setDrinkCount] = useState(0);
+  const [isQuitModalOpen, setIsQuitModalOpen] = useState(false);
 
   /* Audio logic */
   const audio = useRef(null);
   let soundSrc;
-  if (drinkSound === 'Boxing Bell') soundSrc = '../audio/boxingbell.mp3';
-  if (drinkSound === 'Ding') soundSrc = '../audio/ding.mp3';
+  if (drinkSound === 'Boxing Bell') soundSrc = 'audio/boxingbell.mp3';
+  if (drinkSound === 'Ding') soundSrc = 'audio/ding.mp3';
   if (drinkSound === 'No Sound') soundSrc = null;
+
+  if (drinkCount === gameTime - 1) soundSrc = 'audio/game-over.mp3';
   // Playing audio needs to be outside of useEffect to play at the right time
   if (secondCount === 0) audio.current.play();
 
   /* Counting logic */
   useEffect(() => {
-    while (!isPaused) {
+    while (!isPaused && !gameOver) {
       const timeout = setTimeout(() => {
         let newSecondCount, newDrinkCount;
         if (secondCount === 0) {
           newSecondCount = 60;
           newDrinkCount = drinkCount + 1;
           setDrinkCount(newDrinkCount);
+          if (newDrinkCount === gameTime) {
+            setGameOver(true);
+            audio.current.play();
+          }
         } else {
           newSecondCount = secondCount - 1;
         }
@@ -114,44 +103,35 @@ const GameTimer = () => {
         clearTimeout(timeout);
       };
     }
-  }, [secondCount, isPlaying, isPaused, drinkCount]);
+  }, [
+    secondCount,
+    isPlaying,
+    isPaused,
+    drinkCount,
+    gameOver,
+    gameTime,
+    setGameOver,
+  ]);
 
   return (
     <Fade in={isPlaying} timeout={1500}>
       <Box display="flex" flexDirection="column" alignItems="center" mt={0}>
-        <Timer>{secondCount}</Timer>
+        <QuitModal
+          isQuitModalOpen={isQuitModalOpen}
+          setIsQuitModalOpen={setIsQuitModalOpen}
+        ></QuitModal>
+
+        <Timer>{!gameOver ? secondCount : '🍾'}</Timer>
         <Heading variant="h5" component="p">
           <DrinkNum>{drinkCount}</DrinkNum> of <DrinkNum>{gameTime}</DrinkNum>{' '}
           drinks
         </Heading>
-        <ButtonGrid
-          container
-          spacing={2}
-          alignContent="center"
-          alignItems="center"
-          justify="center"
-        >
-          <Grid item>
-            <Button
-              variant="contained"
-              color="primary"
-              size="large"
-              onClick={() => setIsPaused(!isPaused)}
-            >
-              {!isPaused ? 'Pause' : 'Resume'}
-            </Button>
-          </Grid>
-          <Grid item>
-            <Button
-              variant="outlined"
-              color="primary"
-              size="large"
-              onClick={() => setIsPlaying(false)}
-            >
-              Quit
-            </Button>
-          </Grid>
-        </ButtonGrid>
+        <ControlButtons
+          setSecondCount={setSecondCount}
+          setDrinkCount={setDrinkCount}
+          setIsQuitModalOpen={setIsQuitModalOpen}
+        ></ControlButtons>
+        {gameOver && <DrinkText>ALL DONE!</DrinkText>}
         {secondCount < 1 && <DrinkText>DRINK!</DrinkText>}
         <audio ref={audio}>
           <source src={soundSrc} />

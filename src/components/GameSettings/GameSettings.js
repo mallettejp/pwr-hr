@@ -31,7 +31,14 @@ const SettingsSection = styled.section`
 `;
 
 const GameSettings = () => {
-  const { isPlaying, setIsPlaying, setIsPaused } = useGlobalContext();
+  const { isPlaying, setIsPlaying, setIsPaused, setGameOver } = useGlobalContext();
+
+  const handleClick = () => {
+    setIsPlaying(true);
+    setIsPaused(false);
+    setGameOver(false);
+  }
+
   return (
     <Fade in={!isPlaying} timeout={1500}>
       <SettingsSection>
@@ -46,10 +53,7 @@ const GameSettings = () => {
             variant="contained"
             color="primary"
             size="large"
-            onClick={() => {
-              setIsPlaying(true);
-              setIsPaused(false);
-            }}
+            onClick={handleClick}
           >
             Start
           </StartButton>

@@ -21,7 +21,7 @@ const InfoButton = styled(IconButton)`
   line-height: 0;
 `;
 
-const Logotype = ({ openModal }) => {
+const TopBar = ({ openModal }) => {
   return (
     <Box
       pt={1}
@@ -41,4 +41,4 @@ const Logotype = ({ openModal }) => {
   );
 };
 
-export default Logotype;
+export default TopBar;

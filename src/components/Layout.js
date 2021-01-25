@@ -31,7 +31,7 @@ const Layout = ({ children }) => {
     };
   }, []);
 
-  return <StyledContainer maxWidth="lg">{children}</StyledContainer>;
+  return <StyledContainer maxWidth="xl">{children}</StyledContainer>;
 };
 
 export default Layout;
