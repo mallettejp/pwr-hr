@@ -4,4 +4,4 @@
 
 A simple Power Hour PWA.
 
-https://pwrhr.app
+https://pwrhr.netlify.app
